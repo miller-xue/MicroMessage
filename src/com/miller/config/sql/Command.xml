@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.miller.dao.MessageMapper">
+
+  <resultMap type="com.miller.bean.Command" id="CommandResult">
+    <id column="C_ID" jdbcType="INTEGER" property="id"/>
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+    <collection property="contentList" resultMap="CommandContent.CommandContentResult" />
+  </resultMap>
+  
+  <select id="queryCommandList" parameterType="com.miller.bean.Command" resultMap="CommandResult">
+  	SELECT a.ID C_ID,a.NAME,a.DESCRIPTION,
+  			b.ID,b.CONTENT,b.COMMAND_ID 
+  	from command a
+  	left join command_content b
+  	on a.ID = b.COMMAND_ID
+  	 <where><!-- &amp;&amp; == and -->
+	    <if test="name != null &amp;&amp; !&quot;&quot;.equals(name.trim())">
+	    	and a.NAME = #{name}
+	    </if>
+	   <if test="description != null &amp;&amp; !&quot;&quot;.equals(description.trim())">
+	    	 and a.DESCRIPTION like '%' #{description} '%'
+	    </if>
+    </where>
+  </select>
+  
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.miller.bean.Command">
+  	insert into command(NAME,DESCRIPTION) values(#{name},#{description});
+  </insert>
+</mapper>
