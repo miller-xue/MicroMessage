@@ -21,6 +21,9 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+	<plugins>
+		<plugin interceptor="com.miller.interceptor.PageInterceptor"></plugin>
+	</plugins>
   <!-- <settings>
     <setting name="useGeneratedKeys" value="false"/>
     <setting name="useColumnLabel" value="true"/>
