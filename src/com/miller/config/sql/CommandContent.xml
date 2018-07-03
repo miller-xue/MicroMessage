@@ -3,11 +3,22 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="CommandContent">
+<mapper namespace="com.miller.dao.CommandContentMapper">
 
   <resultMap type="com.miller.bean.CommandContent" id="CommandContentResult">
     <id column="ID" jdbcType="INTEGER" property="id"/>
     <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
     <result column="COMMAND_ID" jdbcType="INTEGER" property="commandId"/>
   </resultMap>
+  
+  <insert id="insertOne" parameterType="com.miller.bean.CommandContent">
+  	insert into command_content(content,command_id) values(#{content},#{commandId})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List">
+  	insert into command_content(content,command_id) values
+  	<foreach collection="list" item="item" separator=",">
+	  	(#{item.content},#{item.commandId})
+  	</foreach>
+  </insert>
 </mapper>

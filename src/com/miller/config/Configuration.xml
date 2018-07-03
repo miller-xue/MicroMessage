@@ -22,7 +22,9 @@
 
 <configuration>
 	<plugins>
-		<plugin interceptor="com.miller.interceptor.PageInterceptor"></plugin>
+		<plugin interceptor="com.miller.interceptor.PageInterceptor">
+			<property name="test" value="Hello"/>
+		</plugin>
 	</plugins>
   <!-- <settings>
     <setting name="useGeneratedKeys" value="false"/>
