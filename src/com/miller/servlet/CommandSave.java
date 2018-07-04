@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.miller.service.CommandService;
+
 @WebServlet(value="/command/save")
 public class CommandSave extends HttpServlet {
+	
+	private CommandService service = new CommandService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +27,8 @@ public class CommandSave extends HttpServlet {
 		String description = req.getParameter("description");
 		String[] contents = req.getParameterValues("content");
 		
-		super.doPost(req, resp);
+		service.save(name, description, contents);
+		resp.sendRedirect(req.getContextPath() + "/List");
 	}
 	
 }

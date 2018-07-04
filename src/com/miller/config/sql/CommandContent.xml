@@ -15,7 +15,7 @@
   	insert into command_content(content,command_id) values(#{content},#{commandId})
   </insert>
   
-  <insert id="insertBatch" parameterType="java.util.List">
+  <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
   	insert into command_content(content,command_id) values
   	<foreach collection="list" item="item" separator=",">
 	  	(#{item.content},#{item.commandId})

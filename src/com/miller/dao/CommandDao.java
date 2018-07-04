@@ -32,17 +32,18 @@ public class CommandDao {
 		return commandList;
 	}
 	
-	public int insert(String name, String description) {
-		Command command = new Command();
-		command.setName(name);
-		command.setDescription(description);
+	public int insert(Command command) {
+		@Cleanup
 		SqlSession sqlSession = DBAccess.getSqlSession();
 		int insert = sqlSession.insert("Command.insert",command);
 		sqlSession.commit();
 		return insert;
 	}
+	
 	public static void main(String[] args) {
-		CommandDao commandDao = new CommandDao();
-		commandDao.insert("21", "21");
+		Command command = new Command();
+		command.setName("name");
+		command.setDescription("description");
+		new CommandDao().insert(command);
 	}
 }
